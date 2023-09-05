@@ -5,7 +5,7 @@ const myObject = {
     value: 12,
 };
 
-const myObjectIncr = { //Try to use myObject as your base object for continuation
+const myObjectIncr = { 
     type: "object",
     value: 13,
     incr: function() {
