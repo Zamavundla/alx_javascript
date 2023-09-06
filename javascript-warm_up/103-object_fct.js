@@ -4,16 +4,20 @@ const myObject = {
     type: "object",
     value: 12,
 };
-console.log(myObject)
 
-function incr(){
+console.log(myObject);
+
+function incr() {
     this.value++;
 }
+
 myObject.incr = incr;
 
 myObject.incr();
-console.log(myObject)
+console.log(myObject);
+
 myObject.incr();
 console.log(myObject);
+
 myObject.incr();
 console.log(myObject);
