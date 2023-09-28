@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login to the website</title>
+</head>
+<body>
+    <h1>Login to the website</h1>
+    <div>
+        <label for="firstname">Firstname</label>
+        <input type="text" id="firstname" placeholder="Firstname">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="Email">
+        <button id="loginButton">Log me in</button>
+    </div>
+    
+    <h1>Cookies</h1>
+    <div id="cookieSection">
+        <button id="showCookiesButton">Show the cookies</button>
+        <p id="cookies"></p>
+    </div>
+
+    <!-- JavaScript code -->
+    <script>
+        // Function to set cookies
+        function setCookies() {
+            const firstname = document.getElementById('firstname').value;
+            const email = document.getElementById('email').value;
+
+            // Set cookies
+            document.cookie = `firstname=${firstname}`;
+            document.cookie = `email=${email}`;
+        }
+
+        // Function to show cookies
+        function showCookies() {
+            const cookiesParagraph = document.createElement('p');
+            const cookiesSection = document.getElementById('cookies');
+            cookiesParagraph.innerHTML = `Cookies: ${document.cookie}`;
+            cookiesSection.appendChild(cookiesParagraph);
+        }
+
+        // Attach event listeners
+        document.getElementById('loginButton').addEventListener('click', setCookies);
+        document.getElementById('showCookiesButton').addEventListener('click', showCookies);
+    </script>
+</body>
+</html>

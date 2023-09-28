@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login to the website</title>
+    <style>
+        #loginForm {
+            display: none;
+        }
+
+        #welcomeMessage {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Login to the website</h1>
+    <div>
+        <label for="firstname">Firstname</label>
+        <input type="text" id="firstname" placeholder="Firstname">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="Email">
+        <button id="loginButton">Log me in</button>
+    </div>
+    
+    <div id="loginForm">
+        <h2>Login to the website</h2>
+        <label for="loginFirstname">Firstname</label>
+        <input type="text" id="loginFirstname">
+        <label for="loginEmail">Email</label>
+        <input type="email" id="loginEmail">
+        <button id="loginUser">Log me in</button>
+    </div>
+    
+    <div id="welcomeMessage">
+        <h1>Welcome: <span id="welcomeUser"></span> (<a id="logoutLink">logout</a>)</h1>
+    </div>
+
+    <h1>Cookies</h1>
+    <div id="cookiesSection">
+        <button id="showCookiesButton">Show the cookies</button>
+        <p id="cookies"></p>
+    </div>
+
+    <!-- JavaScript code -->
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.3.1/dist/js.cookie.min.js"></script>
+    <script>
+        // Function to set cookies with a 10-day expiration
+        function setCookies() {
+            const firstname = document.getElementById('firstname').value;
+            const email = document.getElementById('email').value;
+
+            // Calculate the expiration date
+            const expirationDate = new Date();
+            expirationDate.setDate(expirationDate.getDate() + 10); // 10 days from now
+
+            // Set cookies using js-cookie
+            Cookies.set('firstname', firstname, { expires: expirationDate });
+            Cookies.set('email', email, { expires: expirationDate });
+
+            showWelcomeMessageOrForm();
+        }
+
+        // Function to delete cookies and show the login form
+        function deleteCookiesAndShowForm() {
+            // Remove cookies using js-cookie
+            Cookies.remove('firstname');
+            Cookies.remove('email');
+
+            showForm();
+        }
+
+        // Function to show the login form
+        function showForm() {
+            const welcomeMessage = document.getElementById('welcomeMessage');
+            const loginForm = document.getElementById('loginForm');
+            welcomeMessage.style.display = 'none';
+            loginForm.style.display = 'block';
+        }
+
+        // Function to hide the login form
+        function hideForm() {
+            const loginForm = document.getElementById('loginForm');
+            loginForm.style.display = 'none';
+        }
+
+        // Function to show the welcome message or form
+        function showWelcomeMessageOrForm() {
+            const firstname = Cookies.get('firstname');
+            const welcomeMessage = document.getElementById('welcomeMessage');
+            const welcomeUser = document.getElementById('welcomeUser');
+            const logoutLink = document.getElementById('logoutLink');
+            const loginForm = document.getElementById('loginForm');
+            const loginFirstname = document.getElementById('loginFirstname');
+            const loginEmail = document.getElementById('loginEmail');
+
+            if (firstname) {
+                // User is logged in
+                hideForm();
+                welcomeUser.textContent = firstname;
+                welcomeMessage.style.display = 'block';
+                logoutLink.addEventListener('click', function () {
+                    deleteCookiesAndShowForm();
+                });
+            } else {
+                // User is not logged in
+                loginForm.style.display = 'block';
+                welcomeMessage.style.display = 'none';
+            }
+        }
+
+        // Function to show cookies
+        function showCookies() {
+            const cookiesParagraph = document.createElement('p');
+            const cookiesSection = document.getElementById('cookies');
+            cookiesParagraph.textContent = `Cookies: ${document.cookie}`;
+            cookiesSection.appendChild(cookiesParagraph);
+        }
+
+        // Attach event listeners
+        document.getElementById('loginButton').addEventListener('click', setCookies);
+        document.getElementById('loginUser').addEventListener('click', setCookies); // This is the only listener for "Log me in"
+        document.getElementById('showCookiesButton').addEventListener('click', showCookies);
+
+        // Initial setup
+        showWelcomeMessageOrForm();
+    </script>
+</body>
+</html>

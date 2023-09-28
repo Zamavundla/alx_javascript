@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+</head>
+<body>
+    <h1>Available Items</h1>
+    <ul id="itemsList"></ul>
+
+    <h1>Your Cart</h1>
+    <p id="cartStatus">Your cart is empty</p>
+    <div id="cartItems"></div>
+
+    <script>
+        // Array of available items
+        const availableItems = ["Shampoo", "Soap", "Sponge", "Water"];
+
+        // Function to add an item to the cart
+        function addItemToCart(item) {
+            sessionStorage.setItem(item, true);
+            displayCart();
+        }
+
+        // Function to create the item list
+        function createStore() {
+            const itemsList = document.getElementById("itemsList");
+
+            availableItems.forEach((item) => {
+                const li = document.createElement("li");
+                li.textContent = item;
+                li.addEventListener("click", () => addItemToCart(item));
+                itemsList.appendChild(li);
+            });
+        }
+
+        // Function to display the cart
+        function displayCart() {
+            const cartItems = document.getElementById("cartItems");
+            const cartStatus = document.getElementById("cartStatus");
+
+            const keys = Object.keys(sessionStorage);
+
+            if (keys.length === 0) {
+                cartStatus.textContent = "Your cart is empty";
+                cartItems.innerHTML = "";
+            } else {
+                cartStatus.textContent = `You previously had ${keys.length} items in your cart`;
+                cartItems.innerHTML = "";
+
+                keys.forEach((key) => {
+                    const cartItem = document.createElement("p");
+                    cartItem.textContent = key;
+                    cartItems.appendChild(cartItem);
+                });
+            }
+        }
+
+        createStore();
+        displayCart();
+    </script>
+</body>
+</html>
