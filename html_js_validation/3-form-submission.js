@@ -1,3 +1,5 @@
+#!/usr/bin/node
+
 // Function to handle form submission
 function handleFormSubmit(event) {
     event.preventDefault(); // Prevent the default form submission behavior

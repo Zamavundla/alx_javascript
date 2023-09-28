@@ -1,3 +1,5 @@
+#!/usr/bin/node
+
 // Function to validate the password
 function validatePassword(password) {
     const minLength = 8;

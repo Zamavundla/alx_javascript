@@ -1,3 +1,5 @@
+#!/ usr/bin/node
+
 // Function to generate input fields based on the selected value
 function generateInputFields(num) {
     const inputContainer = document.getElementById('inputContainer');
